@@ -80,8 +80,8 @@
 
         <div class="instrucoes">
             <p><strong>1.</strong> Aponte para o chão.</p>
-            <p><strong>2.</strong> Mova o celular em círculos.</p>
-            <p><strong>3.</strong> Assim que aparecer, <b>TOQUE NA TELA</b> para fixar!</p>
+            <p><strong>2.</strong> Assim que aparecer, <b>TOQUE NA TELA</b> para fixar!</p>
+            <p><strong>3.</strong> Se ficar pequena, use os dois dedos para <b>aumentar (zoom)</b>.</p>
         </div>
 
         <button class="btn-ar" onclick="ativarExperiencia()">
@@ -102,7 +102,7 @@
         id="baleia-viewer"
         src="baleia_final.glb" 
         ar 
-        ar-scale="fixed" 
+        ar-scale="auto" 
         ar-placement="floor"
         ar-modes="webxr scene-viewer quick-look" 
         camera-controls 
@@ -111,14 +111,12 @@
 
     <script>
         function ativarExperiencia() {
-            // 1. Tocar o som
+            // Tocar som
             const som = document.getElementById("audio-baleia");
-            som.volume = 0.5; // 50% do volume para não assustar
-            som.play().catch(error => {
-                console.log("O navegador bloqueou o áudio ou arquivo não encontrado.");
-            });
+            som.volume = 0.5;
+            som.play().catch(e => console.log("Áudio bloqueado"));
 
-            // 2. Abrir a câmera
+            // Abrir câmera
             const viewer = document.querySelector("#baleia-viewer");
             viewer.activateAR();
         }
