@@ -10,26 +10,32 @@
 
     <style>
         body { margin: 0; background: linear-gradient(135deg, #e0f7fa 0%, #80deea 100%); font-family: 'Poppins', sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden; }
-        .card { background: white; width: 85%; max-width: 400px; padding: 30px; border-radius: 30px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        .btn-ar { background-color: #00bcd4; color: white; border: none; padding: 15px 30px; border-radius: 50px; font-weight: bold; width: 100%; margin-top: 20px; font-size: 16px; }
+        .card { background: white; width: 85%; max-width: 400px; padding: 30px; border-radius: 30px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.1); position: relative; z-index: 10; }
+        .btn-ar { background-color: #00bcd4; color: white; border: none; padding: 15px 30px; border-radius: 50px; font-weight: bold; width: 100%; margin-top: 20px; font-size: 16px; box-shadow: 0 4px 10px rgba(0,188,212,0.3); }
+        .aviso-ciencia { background: #e3f2fd; color: #0277bd; font-size: 12px; padding: 10px; border-radius: 8px; margin-top: 15px; text-align: left; border-left: 4px solid #0288d1; }
         model-viewer { position: absolute; width: 1px; height: 1px; opacity: 0; }
     </style>
 </head>
 <body>
 
     <div class="card">
-        <h1>🐋 Baleia Franca</h1>
-        <p>Veja o tamanho real de um filhote (5m) e ouça seu canto.</p>
+        <div style="font-size: 40px; margin-bottom: 10px;">🐋</div>
+        <h1>Baleia Franca (5m)</h1>
+        <p style="color:#666; font-size:14px;">Visualização em Escala Real (1:1)</p>
         
-        <div style="background:#f1f8e9; padding:10px; border-radius:10px; text-align:left; font-size:13px; color:#33691e;">
-            <strong>Como usar:</strong><br>
+        <div class="aviso-ciencia">
+            <strong>Instrução Científica:</strong><br>
+            A escala está travada em 5 metros.<br>
             1. Aponte para o chão.<br>
             2. Toque na tela para fixar.<br>
-            3. Se precisar, use os dedos (zoom) para ajustar o tamanho.
+            3. Dê passos para trás para ver inteira.
         </div>
 
-        <button class="btn-ar" onclick="ativar()">📸 Ver e Ouvir</button>
-        <div style="margin-top:20px; font-size:11px; color:#999;">Medicina Veterinária - Unisul</div>
+        <button class="btn-ar" onclick="ativar()">🔊 📸 Projetar Agora</button>
+        
+        <div style="margin-top:20px; font-size:10px; color:#999; border-top:1px solid #eee; padding-top:10px;">
+            Medicina Veterinária - Unisul<br>Equipe de Mamíferos Aquáticos
+        </div>
     </div>
 
     <audio id="som" loop src="baleia_som.mp3"></audio>
@@ -38,10 +44,11 @@
         id="viewer"
         src="baleia_v2.glb" 
         ar 
-        ar-scale="auto" 
+        ar-scale="fixed" 
         ar-placement="floor"
         ar-modes="webxr scene-viewer quick-look" 
-        camera-controls>
+        camera-controls 
+        shadow-intensity="0">
     </model-viewer>
 
     <script>
