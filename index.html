@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projeto Baleia Franca</title>
+    
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.3.0/model-viewer.min.js"></script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* Fundo com degradê de oceano */
+        body { 
+            margin: 0; 
+            background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%); 
+            font-family: 'Poppins', sans-serif; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh; 
+            overflow: hidden; 
+        }
+
+        /* O Cartão Central */
+        .card { 
+            background: white; 
+            width: 85%; 
+            max-width: 400px; 
+            padding: 35px 25px; 
+            border-radius: 30px; 
+            text-align: center; 
+            box-shadow: 0 15px 35px rgba(0, 96, 100, 0.1); 
+            position: relative; 
+            z-index: 10; 
+        }
+        
+        .card h1 { color: #00838f; font-size: 22px; font-weight: 600; margin-bottom: 5px; }
+        .subtitulo { color: #78909c; font-size: 14px; margin-bottom: 25px; font-weight: 300; }
+        
+        /* Box de Dicas (Verde Suave) */
+        .dicas-foto { 
+            background: #f1f8e9; 
+            color: #33691e; 
+            font-size: 13px; 
+            padding: 20px; 
+            border-radius: 20px; 
+            margin-bottom: 25px; 
+            text-align: left; 
+            line-height: 1.6;
+        }
+        
+        /* Botão Principal */
+        .btn-ar { 
+            background-color: #26c6da; 
+            color: white; 
+            border: none; 
+            padding: 16px 30px; 
+            border-radius: 50px; 
+            font-weight: 600; 
+            width: 100%; 
+            font-size: 16px; 
+            box-shadow: 0 8px 20px rgba(38, 198, 218, 0.3); 
+            cursor: pointer; 
+            transition: transform 0.2s;
+            display: flex; justify-content: center; align-items: center; gap: 10px;
+        }
+        .btn-ar:active { transform: scale(0.98); background-color: #00bcd4; }
+
+        /* Rodapé com Créditos */
+        .rodape { 
+            margin-top: 25px; 
+            font-size: 11px; 
+            color: #b0bec5; 
+            border-top: 1px solid #f0f0f0; 
+            padding-top: 15px; 
+            line-height: 1.4; 
+        }
+
+        /* Esconde o 3D até ser chamado */
+        model-viewer { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <div style="font-size: 42px; margin-bottom: 10px;">🐋</div>
+        <h1>Nascimento de um Gigante</h1>
+        <p class="subtitulo">Conheça um filhote de Baleia Franca em tamanho real.</p>
+        
+        <div class="dicas-foto">
+            <strong>✨ Como usar:</strong><br>
+            Aponte para o chão e, assim que a baleia aparecer, <b>toque na tela</b> para fixá-la.<br><br>
+            <strong>📸 Dica para Foto:</strong><br>
+            Afaste-se para caber os 5 metros na tela e use o botão redondo do celular para fotografar!
+        </div>
+
+        <button class="btn-ar" onclick="ativar()">
+            <span>📸</span> Ver e Ouvir Agora
+        </button>
+        
+        <div class="rodape">
+            Feito com carinho pela equipe de <b>Mamíferos Aquáticos</b><br>
+            Medicina Veterinária - <b>Unisul</b>
+        </div>
+    </div>
+
+    <audio id="som" loop src="baleia_som.mp3"></audio>
+
+    <model-viewer 
+        id="viewer"
+        src="baleia_gigante_v1.glb" 
+        ar 
+        ar-scale="fixed" 
+        ar-placement="floor"
+        ar-modes="webxr scene-viewer quick-look" 
+        camera-controls 
+        shadow-intensity="0">
+    </model-viewer>
+
+    <script>
+        function ativar() {
+            // Tenta tocar o som (se o navegador deixar)
+            const som = document.getElementById('som');
+            som.volume = 0.6; // Volume agradável
+            som.play().catch(e => console.log("Áudio aguardando interação"));
+
+            // Ativa a câmera
+            document.getElementById('viewer').activateAR();
+        }
+    </script>
+
+</body>
+</html>
