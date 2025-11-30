@@ -22,7 +22,7 @@
         
         .rodape { margin-top: 25px; font-size: 11px; color: #b0bec5; border-top: 1px solid #f0f0f0; padding-top: 15px; }
         
-        /* Visualizador invisível esperando o clique */
+        /* Deixei levemente visível para garantir carregamento */
         model-viewer { position: absolute; top: 0; left: 0; width: 10px; height: 10px; opacity: 0; pointer-events: none; }
     </style>
 </head>
@@ -35,9 +35,9 @@
         
         <div class="dicas-foto">
             <strong>✨ Como usar:</strong><br>
-            Aponte para o chão e mova o celular. <br><br>
+            Aponte para o chão e mova o celular para escanear.<br><br>
             <strong>📸 Dica:</strong><br>
-            Se a baleia ficar pequena, use os dois dedos (zoom) para deixá-la do tamanho real (5m)!
+            Se precisar, use o movimento de pinça (zoom) para ajustar o tamanho para 5 metros!
         </div>
 
         <button class="btn-ar" onclick="ativar()">
@@ -54,7 +54,7 @@
 
     <model-viewer 
         id="viewer"
-        src="baleia.glb?v=2" 
+        src="baleia_final.glb" 
         ar 
         ar-scale="auto" 
         ar-placement="floor"
@@ -65,12 +65,12 @@
 
     <script>
         function ativar() {
-            // Tenta o som
+            // Som
             const som = document.getElementById('som');
             som.volume = 0.6;
             som.play().catch(e => console.log("Áudio aguardando..."));
 
-            // Ativa o AR
+            // Câmera
             document.getElementById('viewer').activateAR();
         }
     </script>
