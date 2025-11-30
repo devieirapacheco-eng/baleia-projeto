@@ -3,75 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projeto Baleia Franca</title>
+    <title>O Nascimento dos Gigantes</title>
     
     <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.3.0/model-viewer.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
     <style>
-        body { margin: 0; background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%); font-family: 'Poppins', sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden; }
+        body { 
+            margin: 0; padding: 0; height: 100vh; 
+            background: linear-gradient(135deg, #e0f7fa 0%, #80deea 100%);
+            font-family: 'Poppins', sans-serif;
+            display: flex; justify-content: center; align-items: center;
+            overflow: hidden;
+        }
+
+        .card {
+            background: white; width: 85%; max-width: 400px;
+            padding: 30px 25px; border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(0, 96, 100, 0.15);
+            text-align: center; position: relative; z-index: 10;
+        }
+
+        .card h1 { color: #006064; font-size: 20px; font-weight: 600; margin-bottom: 10px; }
         
-        .card { background: white; width: 85%; max-width: 400px; padding: 35px 25px; border-radius: 30px; text-align: center; box-shadow: 0 15px 35px rgba(0, 96, 100, 0.1); position: relative; z-index: 10; }
-        .card h1 { color: #00838f; font-size: 22px; font-weight: 600; margin-bottom: 5px; }
-        .subtitulo { color: #78909c; font-size: 14px; margin-bottom: 25px; font-weight: 300; }
-        
-        .dicas-foto { background: #f1f8e9; color: #33691e; font-size: 13px; padding: 20px; border-radius: 20px; margin-bottom: 25px; text-align: left; line-height: 1.6; }
-        
-        .btn-ar { background-color: #26c6da; color: white; border: none; padding: 16px 30px; border-radius: 50px; font-weight: 600; width: 100%; font-size: 16px; box-shadow: 0 8px 20px rgba(38, 198, 218, 0.3); cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 10px; transition: transform 0.2s; }
-        .btn-ar:active { transform: scale(0.95); }
-        
-        .rodape { margin-top: 25px; font-size: 11px; color: #b0bec5; border-top: 1px solid #f0f0f0; padding-top: 15px; }
-        
-        /* Deixei levemente visível para garantir carregamento */
-        model-viewer { position: absolute; top: 0; left: 0; width: 10px; height: 10px; opacity: 0; pointer-events: none; }
+        .instrucoes {
+            background-color: #f1f8e9;
+            border-radius: 15px;
+            padding: 15px;
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        .instrucoes p {
+            color: #33691e;
+            font-size: 13px;
+            margin: 5px 0;
+            line-height: 1.4;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-ar {
+            background-color: #00bcd4; color: white; border: none;
+            padding: 15px 35px; border-radius: 50px;
+            font-size: 16px; font-weight: 600; cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 188, 212, 0.4);
+            width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px;
+        }
+
+        model-viewer {
+            position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none;
+        }
     </style>
 </head>
 <body>
 
     <div class="card">
-        <div style="font-size: 42px; margin-bottom: 10px;">🐋</div>
-        <h1>Nascimento de um Gigante</h1>
-        <p class="subtitulo">Conheça um filhote de Baleia Franca em tamanho real.</p>
+        <div style="font-size: 40px; margin-bottom: 5px;">🐋</div>
+        <h1>Baleia Franca (5m)</h1>
         
-        <div class="dicas-foto">
-            <strong>✨ Como usar:</strong><br>
-            Aponte para o chão e mova o celular para escanear.<br><br>
-            <strong>📸 Dica:</strong><br>
-            Se precisar, use o movimento de pinça (zoom) para ajustar o tamanho para 5 metros!
+        <p style="color: #546e7a; font-size: 14px; margin-bottom: 10px;">
+            Veja o tamanho real de um filhote recém-nascido na sua frente.
+        </p>
+
+        <div class="instrucoes">
+            <p><strong>1.</strong> Aponte para o chão (piso com detalhes).</p>
+            <p><strong>2.</strong> Mova o celular levemente em círculos.</p>
+            <p><strong>3. IMPORTANTE:</strong> Assim que ela aparecer, <b>TOQUE NA TELA</b> para travar ela no lugar!</p>
         </div>
 
-        <button class="btn-ar" onclick="ativar()">
-            <span>📸</span> Ver e Ouvir Agora
+        <button class="btn-ar" onclick="ativarAR()">
+            📸 Ver Agora
         </button>
-        
-        <div class="rodape">
-            Feito com carinho pela equipe de <b>Mamíferos Aquáticos</b><br>
-            Medicina Veterinária - <b>Unisul</b>
-        </div>
     </div>
 
-    <audio id="som" loop src="baleia_som.mp3"></audio>
-
     <model-viewer 
-        id="viewer"
+        id="baleia-viewer"
         src="baleia_final.glb" 
         ar 
-        ar-scale="auto" 
+        ar-scale="fixed" 
         ar-placement="floor"
-        ar-modes="scene-viewer webxr quick-look" 
+        ar-modes="webxr scene-viewer quick-look" 
         camera-controls 
-        shadow-intensity="1">
+        shadow-intensity="0">
     </model-viewer>
 
     <script>
-        function ativar() {
-            // Som
-            const som = document.getElementById('som');
-            som.volume = 0.6;
-            som.play().catch(e => console.log("Áudio aguardando..."));
-
-            // Câmera
-            document.getElementById('viewer').activateAR();
+        function ativarAR() {
+            const viewer = document.querySelector("#baleia-viewer");
+            viewer.activateAR();
         }
     </script>
 
