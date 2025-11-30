@@ -8,7 +8,7 @@
     <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.3.0/model-viewer.min.js"></script>
 
     <style>
-        /* ESTILO GERAL "MODERNINHO" E LIMPO */
+        /* ESTILO GERAL - Limpo e Acolhedor */
         body {
             margin: 0;
             padding: 0;
@@ -26,7 +26,7 @@
         .container {
             max-width: 600px;
             padding: 40px 20px;
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.95); /* Levemente mais opaco */
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0, 105, 148, 0.15);
             margin: 20px;
@@ -34,8 +34,8 @@
 
         h1 {
             color: #006994; /* Azul oceano */
-            font-size: 2rem;
-            margin-bottom: 10px;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
         }
 
         p {
@@ -55,15 +55,19 @@
             background-color: #006994;
             color: white;
             border: none;
-            padding: 15px 30px;
-            font-size: 1.2rem;
+            padding: 18px 35px;
+            font-size: 1.1rem;
+            font-weight: bold;
             border-radius: 50px;
             cursor: pointer;
             box-shadow: 0 4px 15px rgba(0, 105, 148, 0.3);
             transition: transform 0.2s, background-color 0.2s;
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 10px;
+            width: 80%; /* Botão largo para facilitar o toque */
+            max-width: 300px;
         }
 
         #custom-ar-button:hover {
@@ -75,9 +79,18 @@
             transform: translateY(0);
         }
 
+        .dica {
+            font-size: 0.85rem; 
+            color: #888; 
+            margin-top: 25px;
+            background-color: #f0f8ff;
+            padding: 10px;
+            border-radius: 10px;
+            display: inline-block;
+        }
+
         /* ESCONDENDO O MODEL-VIEWER
-           Ele precisa existir na página para carregar o AR, 
-           mas não precisa ocupar espaço visual. */
+           Ele existe para carregar a tecnologia, mas não polui o visual */
         model-viewer {
             width: 1px;
             height: 1px;
@@ -86,10 +99,6 @@
             top: 0;
             z-index: -1;
         }
-
-        .icon {
-            font-size: 1.5rem;
-        }
     </style>
 </head>
 <body>
@@ -97,33 +106,38 @@
     <div class="container">
         <h1>O Tamanho da Vida</h1>
         <p>
-            Você sabia que um filhote de Baleia Franca já nasce com impressionantes <span class="highlight">5 metros de comprimento</span>?
+            Na nossa pesquisa sobre a placenta dos cetáceos, a escala é fundamental.
             <br><br>
-            Para entender a dimensão real da placenta e do filhote estudados em nossa pesquisa, convidamos você a projetar a baleia agora mesmo no seu ambiente.
+            Você sabia que um filhote de Baleia Franca nasce com <span class="highlight">5 metros de comprimento</span>?
+            <br><br>
+            Clique abaixo para projetar a baleia em <strong>tamanho real</strong> no ambiente onde você está.
         </p>
 
         <button id="custom-ar-button" onclick="activateAR()">
-            <span class="icon">🐋</span> Ver em Tamanho Real
+            🐋 Ver em Tamanho Real
         </button>
         
-        <p style="font-size: 0.9rem; color: #888; margin-top: 20px;">
-            Dica: Aponte para o chão e mova o celular lentamente para detectar a superfície.
-        </p>
+        <div class="dica">
+            <strong>Instrução:</strong> Aponte para um chão livre a 3 metros de distância e faça movimentos circulares com o celular antes de clicar.
+        </div>
     </div>
 
     <model-viewer 
         id="viewer"
         src="baleia_v2.glb" 
         ar 
-        ar-modes="scene-viewer webxr quick-look" 
+        ar-modes="webxr scene-viewer quick-look" 
         ar-scale="fixed"
         ar-placement="floor"
+        disable-pan
+        disable-tap
+        disable-zoom
+        interaction-prompt="none"
         shadow-intensity="1" 
         camera-controls>
     </model-viewer>
 
     <script>
-        // Função para ativar o AR quando clicar no botão bonito
         function activateAR() {
             const modelViewer = document.querySelector('#viewer');
             modelViewer.activateAR();
