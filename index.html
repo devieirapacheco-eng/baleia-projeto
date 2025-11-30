@@ -19,14 +19,30 @@
 
         .card {
             background: white; width: 85%; max-width: 400px;
-            padding: 40px 30px; border-radius: 30px;
+            padding: 30px 25px; border-radius: 30px;
             box-shadow: 0 10px 30px rgba(0, 96, 100, 0.15);
             text-align: center; position: relative; z-index: 10;
         }
 
-        .card h1 { color: #006064; font-size: 22px; font-weight: 600; margin-bottom: 15px; }
-        .card p { color: #546e7a; font-size: 15px; margin-bottom: 30px; }
-        .destaque { color: #00838f; font-weight: 600; }
+        .card h1 { color: #006064; font-size: 20px; font-weight: 600; margin-bottom: 10px; }
+        
+        .instrucoes {
+            background-color: #f1f8e9;
+            border-radius: 15px;
+            padding: 15px;
+            margin: 15px 0 25px 0;
+            text-align: left;
+        }
+
+        .instrucoes p {
+            color: #33691e;
+            font-size: 13px;
+            margin: 5px 0;
+            line-height: 1.4;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
 
         .btn-ar {
             background-color: #00bcd4; color: white; border: none;
@@ -34,9 +50,19 @@
             font-size: 16px; font-weight: 600; cursor: pointer;
             box-shadow: 0 4px 15px rgba(0, 188, 212, 0.4);
             width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px;
+            transition: transform 0.2s;
+        }
+        .btn-ar:active { transform: scale(0.95); }
+
+        .creditos {
+            margin-top: 25px;
+            font-size: 11px;
+            color: #90a4ae;
+            line-height: 1.4;
+            border-top: 1px solid #eceff1;
+            padding-top: 15px;
         }
 
-        /* CONFIGURAÇÃO CRÍTICA PARA O 3D */
         model-viewer {
             position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none;
         }
@@ -45,17 +71,32 @@
 <body>
 
     <div class="card">
-        <div style="font-size: 40px; margin-bottom: 15px;">🐋</div>
-        <h1>O Tamanho de um Gigante</h1>
-        <p>
-            Um filhote de Baleia Franca nasce com <span class="destaque">5 metros</span>.
-            <br><br>
-            <b>Dica:</b> Aponte para os seus pés para ela aparecer perto. Não se preocupe com as cadeiras!
+        <div style="font-size: 40px; margin-bottom: 5px;">🐋</div>
+        <h1>Baleia Franca (5m)</h1>
+        
+        <p style="color: #546e7a; font-size: 14px; margin-bottom: 10px;">
+            Veja o tamanho real de um filhote recém-nascido e ouça seu canto.
         </p>
-        <button class="btn-ar" onclick="ativarAR()">
-            📸 Ver Agora (Tamanho Real)
+
+        <div class="instrucoes">
+            <p><strong>1.</strong> Aponte para o chão.</p>
+            <p><strong>2.</strong> Mova o celular em círculos.</p>
+            <p><strong>3.</strong> Assim que aparecer, <b>TOQUE NA TELA</b> para fixar!</p>
+        </div>
+
+        <button class="btn-ar" onclick="ativarExperiencia()">
+            🔊 📸 Ver e Ouvir Agora
         </button>
+
+        <div class="creditos">
+            Projeto feito pela equipe de <b>Mamíferos Aquáticos</b><br>
+            do curso de Medicina Veterinária da <b>Unisul</b>.
+        </div>
     </div>
+
+    <audio id="audio-baleia" loop>
+        <source src="baleia_som.mp3" type="audio/mpeg">
+    </audio>
 
     <model-viewer 
         id="baleia-viewer"
@@ -63,13 +104,21 @@
         ar 
         ar-scale="fixed" 
         ar-placement="floor"
-        ar-modes="scene-viewer webxr quick-look" 
+        ar-modes="webxr scene-viewer quick-look" 
         camera-controls 
         shadow-intensity="0">
     </model-viewer>
 
     <script>
-        function ativarAR() {
+        function ativarExperiencia() {
+            // 1. Tocar o som
+            const som = document.getElementById("audio-baleia");
+            som.volume = 0.5; // 50% do volume para não assustar
+            som.play().catch(error => {
+                console.log("O navegador bloqueou o áudio ou arquivo não encontrado.");
+            });
+
+            // 2. Abrir a câmera
             const viewer = document.querySelector("#baleia-viewer");
             viewer.activateAR();
         }
