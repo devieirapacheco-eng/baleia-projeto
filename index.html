@@ -3,47 +3,132 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projeto Baleia Franca</title>
+    <title>Projeto Placenta: Baleia Franca</title>
+    
     <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.3.0/model-viewer.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
     <style>
-        body { margin: 0; background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%); font-family: 'Poppins', sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden; }
-        .card { background: white; width: 85%; max-width: 400px; padding: 30px; border-radius: 30px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.1); position: relative; z-index: 10; }
-        .btn-ar { background-color: #00bcd4; color: white; border: none; padding: 15px 30px; border-radius: 50px; font-weight: bold; width: 100%; margin-top: 20px; font-size: 16px; box-shadow: 0 4px 10px rgba(0,188,212,0.3); }
-        model-viewer { position: absolute; width: 1px; height: 1px; opacity: 0; }
+        /* ESTILO GERAL "MODERNINHO" E LIMPO */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: linear-gradient(135deg, #e0f7fa 0%, #ffffff 100%);
+            color: #333;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 600px;
+            padding: 40px 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 105, 148, 0.15);
+            margin: 20px;
+        }
+
+        h1 {
+            color: #006994; /* Azul oceano */
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #555;
+            margin-bottom: 30px;
+        }
+
+        .highlight {
+            color: #006994;
+            font-weight: bold;
+        }
+
+        /* O BOTÃO PERSONALIZADO */
+        #custom-ar-button {
+            background-color: #006994;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 105, 148, 0.3);
+            transition: transform 0.2s, background-color 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        #custom-ar-button:hover {
+            background-color: #004e70;
+            transform: translateY(-2px);
+        }
+
+        #custom-ar-button:active {
+            transform: translateY(0);
+        }
+
+        /* ESCONDENDO O MODEL-VIEWER
+           Ele precisa existir na página para carregar o AR, 
+           mas não precisa ocupar espaço visual. */
+        model-viewer {
+            width: 1px;
+            height: 1px;
+            opacity: 0;
+            position: absolute;
+            top: 0;
+            z-index: -1;
+        }
+
+        .icon {
+            font-size: 1.5rem;
+        }
     </style>
 </head>
 <body>
-    <div class="card">
-        <h1>🐋 Baleia Franca</h1>
-        <p style="color:#666">Visualização em Tamanho Real</p>
-        <div style="background:#f1f8e9; padding:15px; border-radius:15px; text-align:left; font-size:13px; color:#33691e;">
-            <strong>Como usar:</strong><br>
-            1. Aponte para o chão.<br>
-            2. Mova o celular conforme o desenho.<br>
-            3. Dê zoom se precisar ajustar.
-        </div>
-        <button class="btn-ar" onclick="ativar()">📸 Ver Agora</button>
+
+    <div class="container">
+        <h1>O Tamanho da Vida</h1>
+        <p>
+            Você sabia que um filhote de Baleia Franca já nasce com impressionantes <span class="highlight">5 metros de comprimento</span>?
+            <br><br>
+            Para entender a dimensão real da placenta e do filhote estudados em nossa pesquisa, convidamos você a projetar a baleia agora mesmo no seu ambiente.
+        </p>
+
+        <button id="custom-ar-button" onclick="activateAR()">
+            <span class="icon">🐋</span> Ver em Tamanho Real
+        </button>
+        
+        <p style="font-size: 0.9rem; color: #888; margin-top: 20px;">
+            Dica: Aponte para o chão e mova o celular lentamente para detectar a superfície.
+        </p>
     </div>
-    
-    <audio id="som" loop src="baleia_som.mp3"></audio>
 
     <model-viewer 
         id="viewer"
-        src="baleia.glb" 
+        src="baleia_final.glb" 
         ar 
-        ar-scale="auto" 
-        ar-placement="floor" 
         ar-modes="scene-viewer webxr quick-look" 
-        camera-controls 
-        shadow-intensity="1">
+        ar-scale="fixed"
+        ar-placement="floor"
+        shadow-intensity="1" 
+        camera-controls>
     </model-viewer>
 
     <script>
-        function ativar() {
-            document.getElementById('som').play().catch(e=>{});
-            document.getElementById('viewer').activateAR();
+        // Função para ativar o AR quando clicar no botão bonito
+        function activateAR() {
+            const modelViewer = document.querySelector('#viewer');
+            modelViewer.activateAR();
         }
     </script>
+
 </body>
 </html>
