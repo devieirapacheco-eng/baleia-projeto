@@ -81,7 +81,7 @@
         <div class="instrucoes">
             <p><strong>1.</strong> Aponte para o chão.</p>
             <p><strong>2.</strong> Assim que aparecer, <b>TOQUE NA TELA</b> para fixar!</p>
-            <p><strong>3.</strong> Se ficar pequena, use os dois dedos para <b>aumentar (zoom)</b>.</p>
+            <p><strong>Nota:</strong> O tamanho é fixo em 5 metros (escala real 1:1).</p>
         </div>
 
         <button class="btn-ar" onclick="ativarExperiencia()">
@@ -102,7 +102,7 @@
         id="baleia-viewer"
         src="baleia_final.glb" 
         ar 
-        ar-scale="auto" 
+        ar-scale="fixed" 
         ar-placement="floor"
         ar-modes="webxr scene-viewer quick-look" 
         camera-controls 
@@ -111,12 +111,10 @@
 
     <script>
         function ativarExperiencia() {
-            // Tocar som
             const som = document.getElementById("audio-baleia");
             som.volume = 0.5;
             som.play().catch(e => console.log("Áudio bloqueado"));
 
-            // Abrir câmera
             const viewer = document.querySelector("#baleia-viewer");
             viewer.activateAR();
         }
