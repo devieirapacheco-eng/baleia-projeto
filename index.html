@@ -11,9 +11,12 @@
     <style>
         body { margin: 0; background: linear-gradient(135deg, #e0f7fa 0%, #80deea 100%); font-family: 'Poppins', sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden; }
         .card { background: white; width: 85%; max-width: 400px; padding: 30px; border-radius: 30px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.1); position: relative; z-index: 10; }
-        .btn-ar { background-color: #00bcd4; color: white; border: none; padding: 15px 30px; border-radius: 50px; font-weight: bold; width: 100%; margin-top: 20px; font-size: 16px; box-shadow: 0 4px 10px rgba(0,188,212,0.3); }
-        .aviso-ciencia { background: #e3f2fd; color: #0277bd; font-size: 12px; padding: 10px; border-radius: 8px; margin-top: 15px; text-align: left; border-left: 4px solid #0288d1; }
+        .btn-ar { background-color: #00bcd4; color: white; border: none; padding: 15px 30px; border-radius: 50px; font-weight: bold; width: 100%; margin-top: 20px; font-size: 16px; box-shadow: 0 4px 10px rgba(0,188,212,0.3); cursor: pointer; }
+        /* Mudei a cor do aviso para verde para incentivar a foto */
+        .aviso-ciencia { background: #e8f5e9; color: #2e7d32; font-size: 13px; padding: 15px; border-radius: 12px; margin-top: 15px; text-align: left; border-left: 4px solid #43a047; line-height: 1.5; }
+        .aviso-ciencia strong { font-weight: 600; display: block; margin-bottom: 5px; }
         model-viewer { position: absolute; width: 1px; height: 1px; opacity: 0; }
+        .camera-icon { font-size: 20px; margin-right: 8px; }
     </style>
 </head>
 <body>
@@ -24,14 +27,15 @@
         <p style="color:#666; font-size:14px;">Visualização em Escala Real (1:1)</p>
         
         <div class="aviso-ciencia">
-            <strong>Instrução Científica:</strong><br>
-            A escala está travada em 5 metros.<br>
-            1. Aponte para o chão.<br>
-            2. Toque na tela para fixar.<br>
-            3. Dê passos para trás para ver inteira.
+            <strong>📸 Instruções para Foto:</strong>
+            1. Aponte para o chão e toque para fixar.<br>
+            2. Peça para um colega ficar ao lado da baleia.<br>
+            3. <b>Use o botão redondo do próprio celular</b> quando a câmera abrir para tirar a foto!
         </div>
 
-        <button class="btn-ar" onclick="ativar()">🔊 📸 Projetar Agora</button>
+        <button class="btn-ar" onclick="ativar()">
+            <span class="camera-icon">📸</span> Projetar e Fotografar
+        </button>
         
         <div style="margin-top:20px; font-size:10px; color:#999; border-top:1px solid #eee; padding-top:10px;">
             Medicina Veterinária - Unisul<br>Equipe de Mamíferos Aquáticos
@@ -42,7 +46,7 @@
 
     <model-viewer 
         id="viewer"
-        src="baleia_v2.glb" 
+        src="baleia_gigante_v1.glb" 
         ar 
         ar-scale="fixed" 
         ar-placement="floor"
