@@ -10,12 +10,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
 
     <style>
-        /* DESIGN VISUAL */
+        /* DESIGN VISUAL - Clean e Profissional */
         body {
             margin: 0;
             padding: 0;
             font-family: 'Montserrat', sans-serif;
-            /* Gradiente Fundo do Mar */
             background: linear-gradient(180deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
             color: #ffffff;
             height: 100vh;
@@ -31,7 +30,6 @@
             max-width: 500px;
             width: 90%;
             padding: 30px 25px;
-            /* Efeito de vidro elegante */
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
@@ -42,10 +40,10 @@
             position: relative;
         }
 
-        /* CRÉDITOS NO TOPO (DESTACADO) */
+        /* CRÉDITOS */
         .header-credits {
             font-size: 0.75rem;
-            color: #8ed1fc; /* Azul claro neon */
+            color: #8ed1fc;
             text-transform: uppercase;
             letter-spacing: 2px;
             margin-bottom: 8px;
@@ -91,10 +89,9 @@
         #custom-ar-button:hover {
             transform: scale(1.03);
             box-shadow: 0 0 30px rgba(0, 198, 255, 0.6);
-            background: linear-gradient(90deg, #00b4e9 0%, #0062db 100%);
         }
 
-        /* Instruções Fofas */
+        /* Instruções */
         .instructions {
             margin-top: 30px;
             text-align: left;
@@ -110,10 +107,6 @@
             margin-bottom: 12px;
             font-size: 0.85rem;
             color: #ddd;
-        }
-
-        .step:last-child {
-            margin-bottom: 0;
         }
 
         .icon-box {
@@ -132,7 +125,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Model-Viewer Oculto */
         model-viewer {
             width: 1px; height: 1px; opacity: 0; position: absolute; z-index: -1;
         }
@@ -146,30 +138,30 @@
         <h1>Baleia Franca</h1>
         
         <p>
-            Que tal trazer um gigante dos mares para pertinho de você?
+            Traga a anatomia para o mundo real.
             <br><br>
-            Clique no botão abaixo para projetar a baleia e descobrir o tamanho real do filhote. 🐋
+            Use os controles livres para posicionar, girar e estudar a proporção do filhote onde você estiver. 🐋
         </p>
 
         <button id="custom-ar-button" onclick="activateAR()">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9c2.39 0 4.68.94 6.4 2.6l-1.5 1.5C15.42 5.63 13.8 5 12 5c-3.87 0-7 3.13-7 7s3.13 7 7 7 7-3.13 7-7h-1.5L20 9.5 22.5 12H21z"/>
             </svg>
-            Ver Baleia Agora
+            Abrir Experiência 3D
         </button>
 
         <div class="instructions">
             <div class="step">
+                <div class="icon-box">📍</div>
+                <div>Aponte para o chão e faça círculos até a baleia aparecer.</div>
+            </div>
+            <div class="step">
                 <div class="icon-box">👆</div>
-                <div>Arraste com um dedo para <strong>mover</strong> a baleia pelo chão.</div>
+                <div><strong>1 Dedo:</strong> Arraste para mover.</div>
             </div>
             <div class="step">
-                <div class="icon-box">🤏</div>
-                <div>Use dois dedos para dar <strong>zoom</strong> (aumentar/diminuir).</div>
-            </div>
-            <div class="step">
-                <div class="icon-box">👣</div>
-                <div>Solte a tela para <strong>fixar</strong> ela no lugar e andar ao redor!</div>
+                <div class="icon-box">✌️</div>
+                <div><strong>2 Dedos:</strong> Gire ou dê zoom (pinça).</div>
             </div>
         </div>
     </div>
@@ -178,7 +170,9 @@
         id="viewer"
         src="baleianova.glb" 
         ar 
+        /* webxr primeiro garante melhor fixação no chão */
         ar-modes="webxr scene-viewer quick-look" 
+        ar-scale="auto" 
         ar-placement="floor"
         shadow-intensity="1" 
         camera-controls>
