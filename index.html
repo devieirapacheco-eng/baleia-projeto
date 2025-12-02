@@ -3,122 +3,174 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projeto Placenta: Baleia Franca</title>
+    <title>Anatomia Cetácea | Realidade Aumentada</title>
     
     <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.3.0/model-viewer.min.js"></script>
 
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+
     <style>
-        /* ESTILO GERAL - Limpo e Acolhedor */
+        /* DESIGN VISUAL */
         body {
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background: linear-gradient(135deg, #e0f7fa 0%, #ffffff 100%);
-            color: #333;
+            font-family: 'Montserrat', sans-serif;
+            /* Gradiente elegante simulando o fundo do mar */
+            background: linear-gradient(180deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+            color: #ffffff;
             height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             text-align: center;
+            overflow: hidden;
         }
 
         .container {
-            max-width: 600px;
-            padding: 40px 20px;
-            background: rgba(255, 255, 255, 0.95); /* Levemente mais opaco */
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 105, 148, 0.15);
-            margin: 20px;
+            max-width: 500px;
+            width: 90%;
+            padding: 40px 30px;
+            /* Efeito de vidro (Glassmorphism) */
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 24px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            animation: fadeIn 1s ease-out;
         }
 
         h1 {
-            color: #006994; /* Azul oceano */
+            font-weight: 600;
             font-size: 1.8rem;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+            color: #fff;
+        }
+
+        .subtitle {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #8ed1fc; /* Azul claro neon */
+            margin-bottom: 30px;
+            font-weight: 600;
         }
 
         p {
-            font-size: 1.1rem;
+            font-size: 1rem;
             line-height: 1.6;
-            color: #555;
+            color: #e0e0e0;
             margin-bottom: 30px;
+            font-weight: 300;
         }
 
-        .highlight {
-            color: #006994;
-            font-weight: bold;
-        }
-
-        /* O BOTÃO PERSONALIZADO */
+        /* BOTÃO PRINCIPAL */
         #custom-ar-button {
-            background-color: #006994;
+            background: linear-gradient(90deg, #00c6ff 0%, #0072ff 100%);
             color: white;
             border: none;
-            padding: 18px 35px;
+            padding: 16px 40px;
             font-size: 1.1rem;
-            font-weight: bold;
+            font-weight: 600;
             border-radius: 50px;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0, 105, 148, 0.3);
-            transition: transform 0.2s, background-color 0.2s;
-            display: inline-flex;
+            box-shadow: 0 0 20px rgba(0, 198, 255, 0.4);
+            transition: all 0.3s ease;
+            width: 100%;
+            max-width: 320px;
+            display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            width: 80%; /* Botão largo para facilitar o toque */
-            max-width: 300px;
+            gap: 12px;
         }
 
         #custom-ar-button:hover {
-            background-color: #004e70;
-            transform: translateY(-2px);
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(0, 198, 255, 0.6);
         }
 
-        #custom-ar-button:active {
-            transform: translateY(0);
+        /* Instruções Visuais */
+        .instructions {
+            margin-top: 30px;
+            text-align: left;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            border-radius: 12px;
         }
 
-        .dica {
-            font-size: 0.85rem; 
-            color: #888; 
-            margin-top: 25px;
-            background-color: #f0f8ff;
-            padding: 10px;
-            border-radius: 10px;
-            display: inline-block;
+        .step {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+            color: #ccc;
         }
 
-        /* ESCONDENDO O MODEL-VIEWER
-           Ele existe para carregar a tecnologia, mas não polui o visual */
+        .step span {
+            background: rgba(255, 255, 255, 0.1);
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-weight: bold;
+            font-size: 0.75rem;
+            color: #fff;
+        }
+
+        /* CRÉDITOS (RODAPÉ) */
+        .footer-credits {
+            margin-top: 40px;
+            font-size: 0.75rem;
+            opacity: 0.7;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 15px;
+            width: 100%;
+        }
+
+        /* ANIMAÇÃO DE ENTRADA */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* MODEL-VIEWER INVISÍVEL */
         model-viewer {
-            width: 1px;
-            height: 1px;
-            opacity: 0;
-            position: absolute;
-            top: 0;
-            z-index: -1;
+            width: 1px; height: 1px; opacity: 0; position: absolute; z-index: -1;
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h1>O Tamanho da Vida</h1>
+        <div class="subtitle">Realidade Aumentada</div>
+        <h1>Baleia Franca</h1>
+        
         <p>
-            Na nossa pesquisa sobre a placenta dos cetáceos, a escala é fundamental.
-            <br><br>
-            Você sabia que um filhote de Baleia Franca nasce com <span class="highlight">5 metros de comprimento</span>?
-            <br><br>
-            Clique abaixo para projetar a baleia em <strong>tamanho real</strong> no ambiente onde você está.
+            Confira de pertinho a anatomia deste gigante dos mares. 
+            Projete o modelo em sua sala para visualizar a proporção real do recém-nascido em relação à placenta.
         </p>
 
         <button id="custom-ar-button" onclick="activateAR()">
-            🐋 Ver em Tamanho Real
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+            </svg>
+            Ver em 3D no Ambiente
         </button>
-        
-        <div class="dica">
-            <strong>Instrução:</strong> Aponte para um chão livre a 3 metros de distância e faça movimentos circulares com o celular antes de clicar.
+
+        <div class="instructions">
+            <div class="step"><span>1</span> Aponte a câmera para o chão ou uma mesa.</div>
+            <div class="step"><span>2</span> Mova o celular lentamente para detectar a área.</div>
+            <div class="step"><span>3</span> <strong>Use dois dedos</strong> para aumentar, diminuir ou girar a baleia como quiser.</div>
+        </div>
+
+        <div class="footer-credits">
+            Produzido por <strong>Elder Pacheco</strong><br>
+            Medicina Veterinária
         </div>
     </div>
 
@@ -127,12 +179,7 @@
         src="baleianova.glb" 
         ar 
         ar-modes="webxr scene-viewer quick-look" 
-        ar-scale="fixed"
         ar-placement="floor"
-        disable-pan
-        disable-tap
-        disable-zoom
-        interaction-prompt="none"
         shadow-intensity="1" 
         camera-controls>
     </model-viewer>
